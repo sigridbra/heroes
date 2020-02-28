@@ -1,7 +1,7 @@
 import Prismic from "prismic-javascript";
 import { RichText } from "prismic-reactjs";
 
-import {apiEndpoint, accessToken } from "constants";
+import {apiEndpoint } from "./constants.js";
 
 export const linkResolver = function(doc) {
   // Pretty URLs for known types
@@ -14,15 +14,12 @@ export const linkResolver = function(doc) {
 export const html = document =>
   RichText.render(document.data.text_field, linkResolver);
 
-export const accessDocument = async (docType, page) => {
+export const accessDocument = async (docType, lang) => {
   
-  page = page || 1;
-  return Prismic.api(apiEndpoint, { accessToken }).then(api => {
+  lang = lang || 'en-gb';
+  return Prismic.api(apiEndpoint, ).then(api => {
     return api
-      .query(Prismic.Predicates.at("document.type", docType), {
-        pageSize: 100,
-        page: page
-      })
+      .query(Prismic.Predicates.at("document.type", docType), { lang : lang })
       .then(response => {
         if (response) {
           return response.results.map(result => result.data);
