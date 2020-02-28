@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { accessDocument } from "./prismic-utils.js";
-import Button from '@material-ui/core/Button';
 import HeroComponent from "./HeroComponent.jsx";
 import './App.css';
 
@@ -33,7 +32,7 @@ function HeroList(props) {
       <h1>{Title != null && Title[0].title}</h1>
       {heroes &&
             heroes.map((section, i) => {
-               let power = Powers.find(power => section.power.uid === power.iid)
+            let power = Powers.find(power => section.power.uid === power.iid);
               return <HeroComponent hero={section} name={section.name[0].text} img={section.picture.url} power={power} key={i} />;
             })}
     </div>
